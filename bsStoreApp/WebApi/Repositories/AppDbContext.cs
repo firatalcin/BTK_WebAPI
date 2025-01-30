@@ -1,6 +1,9 @@
-﻿namespace WebApi.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApi.Model;
 
-public class AppDbContext
+namespace WebApi.Repositories;
+
+public class AppDbContext : DbContext
 {
-    
+    public DbSet<Book> Books { get; set; }
 }
