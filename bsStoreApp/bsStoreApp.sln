@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{8F816BEC-F020-439E-AA91-58FF149D4DA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{0AB7F6F9-7651-4B4A-A4FC-FF48A32837CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{8F816BEC-F020-439E-AA91-58FF149D4DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F816BEC-F020-439E-AA91-58FF149D4DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F816BEC-F020-439E-AA91-58FF149D4DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB7F6F9-7651-4B4A-A4FC-FF48A32837CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB7F6F9-7651-4B4A-A4FC-FF48A32837CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB7F6F9-7651-4B4A-A4FC-FF48A32837CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB7F6F9-7651-4B4A-A4FC-FF48A32837CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
