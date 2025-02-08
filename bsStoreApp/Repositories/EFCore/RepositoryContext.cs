@@ -1,12 +1,12 @@
 ﻿using Entities.Models;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Repositories.Config;
+using Repositories.EFCore.Config;
 
-namespace WebApi.Repositories;
+namespace Repositories.EFCore;
 
-public class AppDbContext : DbContext
+public class RepositoryContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options)
     {
         
     }

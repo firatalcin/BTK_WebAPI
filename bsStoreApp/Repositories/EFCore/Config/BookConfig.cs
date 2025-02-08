@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace WebApi.Repositories.Config;
+namespace Repositories.EFCore.Config;
 
 public class BookConfig : IEntityTypeConfiguration<Book>
 {
@@ -12,6 +12,6 @@ public class BookConfig : IEntityTypeConfiguration<Book>
             new Book(){Id = 1, Title = "Karagöz ve Hacivat", Price = 75},
             new Book(){Id = 2, Title = "Mesnevi", Price = 175},
             new Book(){Id = 3, Title = "Devlet", Price = 375}
-            );
+        );
     }
 }

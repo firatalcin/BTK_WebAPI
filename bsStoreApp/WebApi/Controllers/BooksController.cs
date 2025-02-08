@@ -1,7 +1,7 @@
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Repositories;
+using Repositories.EFCore;
 
 namespace WebApi.Controllers
 {
@@ -9,9 +9,9 @@ namespace WebApi.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly RepositoryContext _context;
 
-        public BooksController(AppDbContext context)
+        public BooksController(RepositoryContext context)
         {
             _context = context;
         }
