@@ -1,0 +1,14 @@
+2025-02-10 23:06:13.5654 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-02-10 23:06:13.5654 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.4.0.3182. Product version: 5.4.0+4d45d445601312040107cbe2ac00e56c4bf4a60b. GlobalAssemblyCache: False
+2025-02-10 23:06:13.5843 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\firat\Masaüstü\GitHubs\BTK_WebAPI\bsStoreApp\WebApi\nlog.config
+2025-02-10 23:06:13.5959 Info Configuration initialized.
+2025-02-10 23:09:00.8706 Info AppDomain Shutting down. LogFactory closing...
+2025-02-10 23:09:00.8774 Info LogFactory has been closed.
+2025-02-10 23:09:07.8931 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-02-10 23:09:07.9105 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.4.0.3182. Product version: 5.4.0+4d45d445601312040107cbe2ac00e56c4bf4a60b. GlobalAssemblyCache: False
+2025-02-10 23:09:07.9105 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\firat\Masaüstü\GitHubs\BTK_WebAPI\bsStoreApp\WebApi\nlog.config
+2025-02-10 23:09:07.9309 Info Configuration initialized.
+2025-02-10 23:10:00.2717 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-02-10 23:10:00.2868 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.4.0.3182. Product version: 5.4.0+4d45d445601312040107cbe2ac00e56c4bf4a60b. GlobalAssemblyCache: False
+2025-02-10 23:10:00.2868 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\firat\Masaüstü\GitHubs\BTK_WebAPI\bsStoreApp\WebApi\nlog.config
+2025-02-10 23:10:00.3065 Info Configuration initialized.
