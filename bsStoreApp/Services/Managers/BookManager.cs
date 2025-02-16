@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Entities.Exceptions;
+using Entities.Models;
 using Repositories.Contracts;
 using Services.Contracts;
 
@@ -22,7 +23,10 @@ public class BookManager : IBookService
 
     public Book GetOneBookById(int id, bool trackChanges)
     {
-        return _repositoryManager.Book.GetOneBookById(id, trackChanges);
+        var book = _repositoryManager.Book.GetOneBookById(id, trackChanges);
+        if (book is null)
+            throw new BookNotFoundException(id);
+        return book;
     }
 
     public Book CreateOneBook(Book book)
@@ -42,13 +46,7 @@ public class BookManager : IBookService
         var entity = _repositoryManager.Book.GetOneBookById(id, trackChanges);
 
         if (entity is null)
-        {
-            var message = $"Book with id: {id} could not found";
-            _logger.LogInfo(message);
-            throw new Exception(message);
-        }
-            
-
+            throw new BookNotFoundException(id);
         
         if(book is null)
             throw new ArgumentNullException(nameof(book));
@@ -64,12 +62,9 @@ public class BookManager : IBookService
     public void DeleteOneBook(int id, bool trackChanges)
     {
         var entity = _repositoryManager.Book.GetOneBookById(id, trackChanges);
-
+        
         if (entity is null)
-        {
-            _logger.LogInfo($"Book with id: {id} could not found");
-            throw new Exception($"Book with id: {id} could not found");
-        }
+            throw new BookNotFoundException(id);
         
         _repositoryManager.Book.DeleteOneBook(entity);
         _repositoryManager.Save();
