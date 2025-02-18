@@ -1,4 +1,5 @@
-﻿using Entities.Exceptions;
+﻿using Entities.DTOs;
+using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
@@ -41,12 +42,12 @@ public class BooksController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public IActionResult UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] Book book)
+    public IActionResult UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] BookDtoForUpdate bookDto)
     {
-        if (book is null && id <= 0)
+        if (bookDto is null && id <= 0)
             return BadRequest();
 
-        _manager.BookService.UpdateOneBook(id, book, true);
+        _manager.BookService.UpdateOneBook(id, bookDto, true);
         return NoContent();
     }
 

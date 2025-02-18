@@ -1,4 +1,6 @@
-﻿using Entities.Exceptions;
+﻿using AutoMapper;
+using Entities.DTOs;
+using Entities.Exceptions;
 using Entities.Models;
 using Repositories.Contracts;
 using Services.Contracts;
@@ -9,11 +11,13 @@ public class BookManager : IBookService
 {
     private readonly IRepositoryManager _repositoryManager;
     private readonly ILoggerService _logger;
+    private readonly IMapper _mapper;
 
-    public BookManager(IRepositoryManager repositoryManager, ILoggerService logger)
+    public BookManager(IRepositoryManager repositoryManager, ILoggerService logger, IMapper mapper)
     {
         _repositoryManager = repositoryManager;
         _logger = logger;
+        _mapper = mapper;
     }
 
     public IEnumerable<Book> GetAllBooks(bool trackChanges)
@@ -41,18 +45,17 @@ public class BookManager : IBookService
         return book;
     }
 
-    public void UpdateOneBook(int id, Book book, bool trackChanges)
+    public void UpdateOneBook(int id, BookDtoForUpdate bookDto, bool trackChanges)
     {
         var entity = _repositoryManager.Book.GetOneBookById(id, trackChanges);
 
         if (entity is null)
             throw new BookNotFoundException(id);
         
-        if(book is null)
-            throw new ArgumentNullException(nameof(book));
-        
-        entity.Title = book.Title;
-        entity.Price = book.Price;
+        // entity.Title = book.Title;
+        // entity.Price = book.Price;
+
+        entity = _mapper.Map<Book>(bookDto);
         
         _repositoryManager.Book.UpdateOneBook(entity);
         _repositoryManager.Save();
