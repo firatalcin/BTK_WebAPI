@@ -1,3 +1,9 @@
-﻿namespace Entities.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record BookDtoForUpdate(int Id, string Title, decimal Price);
+namespace Entities.DTOs;
+
+public record BookDtoForUpdate : BookDtoForManipulation
+{
+    [Required]
+    public int Id { get; init; }
+}
