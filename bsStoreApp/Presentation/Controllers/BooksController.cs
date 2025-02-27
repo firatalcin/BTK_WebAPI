@@ -49,8 +49,11 @@ public class BooksController : ControllerBase
     {
         if (bookDto is null && id <= 0)
             return BadRequest();
+        
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
 
-        _manager.BookService.UpdateOneBook(id, bookDto, true);
+        _manager.BookService.UpdateOneBook(id, bookDto, false);
         return NoContent();
     }
 
