@@ -37,6 +37,9 @@ public class BooksController : ControllerBase
         if (string.IsNullOrEmpty(bookDto.Title))
             return BadRequest();
 
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
+
         var book = _manager.BookService.CreateOneBook(bookDto);
         return StatusCode(201, book);
     }
