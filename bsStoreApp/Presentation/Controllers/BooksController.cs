@@ -9,6 +9,7 @@ namespace Presentation.Controllers;
 
 [ApiController]
 [Route("api/books")]
+[ServiceFilter(typeof(LogFilterAttribute))]
 public class BooksController : ControllerBase
 {
     private readonly IServiceManager _manager;
@@ -39,16 +40,11 @@ public class BooksController : ControllerBase
         var book = await _manager.BookService.CreateOneBookAsync(bookDto);
         return StatusCode(201, book);
     }
-
+    
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateOneBookAsync([FromRoute(Name = "id")] int id, [FromBody] BookDtoForUpdate bookDto)
     {
-        if (bookDto is null && id <= 0)
-            return BadRequest();
-        
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
-
         await _manager.BookService.UpdateOneBookAsync(id, bookDto, false);
         return NoContent();
     }
