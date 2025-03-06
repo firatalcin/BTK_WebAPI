@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NLog;
+using Presentation.ActionFilters;
 using Repositories.EFCore;
 using Services.Contracts;
 using WebApi.Extensions;
@@ -17,6 +18,8 @@ builder.Services.AddControllers(config =>
     .AddCustomCsvFormatter()
     .AddXmlDataContractSerializerFormatters()
     .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
+
+builder.Services.AddScoped<ValidationFilterAttribute>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {

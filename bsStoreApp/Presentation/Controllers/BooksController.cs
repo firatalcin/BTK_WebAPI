@@ -2,6 +2,7 @@
 using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Services.Contracts;
 
 namespace Presentation.Controllers;
@@ -31,15 +32,10 @@ public class BooksController : ControllerBase
         return Ok(book);
     }
 
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     [HttpPost]
     public async Task<IActionResult> CreateOneBookAsync([FromBody] BookDtoForInsertion bookDto)
     {
-        if (string.IsNullOrEmpty(bookDto.Title))
-            return BadRequest();
-
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
-
         var book = await _manager.BookService.CreateOneBookAsync(bookDto);
         return StatusCode(201, book);
     }
