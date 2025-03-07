@@ -28,9 +28,7 @@ public class BookManager : IBookService
 
     public async Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges)
     {
-        var book = await _repositoryManager.Book.GetOneBookByIdAsync(id, trackChanges);
-        if (book is null)
-            throw new BookNotFoundException(id);
+        var book = await GetOneBookAndCheckExistsAsync(id, trackChanges);
         return _mapper.Map<BookDto>(book);
     }
 
@@ -50,29 +48,26 @@ public class BookManager : IBookService
 
     public async Task UpdateOneBookAsync(int id, BookDtoForUpdate bookDto, bool trackChanges)
     {
-        var entity = await _repositoryManager.Book.GetOneBookByIdAsync(id, trackChanges);
-
-        if (entity is null)
-            throw new BookNotFoundException(id);
-        
-        // entity.Title = book.Title;
-        // entity.Price = book.Price;
-
-        entity = _mapper.Map<Book>(bookDto);
-        
-        _repositoryManager.Book.UpdateOneBook(entity);
+        var bookDtoForUpdate = _mapper.Map<Book>(bookDto);
+        _repositoryManager.Book.UpdateOneBook(bookDtoForUpdate);
         await _repositoryManager.SaveAsync();
-
     }
 
     public async Task DeleteOneBookAsync(int id, bool trackChanges)
     {
-        var entity = await _repositoryManager.Book.GetOneBookByIdAsync(id, trackChanges);
-        
-        if (entity is null)
-            throw new BookNotFoundException(id);
+        var entity = await GetOneBookAndCheckExistsAsync(id, trackChanges);
         
         _repositoryManager.Book.DeleteOneBook(entity);
         await _repositoryManager.SaveAsync();
+    }
+
+    private async Task<Book> GetOneBookAndCheckExistsAsync(int id, bool trackChanges)
+    {
+        var entity = await _repositoryManager.Book.GetOneBookByIdAsync(id, trackChanges);
+
+        if (entity is null)
+            throw new BookNotFoundException(id);
+
+        return entity;
     }
 }
