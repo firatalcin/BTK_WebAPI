@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Entities.RequestFeatures;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
 
@@ -11,10 +12,12 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
     }
 
 
-    public async Task<IEnumerable<Book>> GetAllBooksAsync(bool trackChanges)
+    public async Task<IEnumerable<Book>> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges)
     {
         return await FindAll(trackChanges)
             .OrderBy(b => b.Id)
+            .Skip((bookParameters.PageNumber - 1) * bookParameters.PageSize)
+            .Take(bookParameters.PageSize)
             .ToListAsync();
     }
 

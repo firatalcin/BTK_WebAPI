@@ -2,6 +2,7 @@
 using Entities.DTOs;
 using Entities.Exceptions;
 using Entities.Models;
+using Entities.RequestFeatures;
 using Repositories.Contracts;
 using Services.Contracts;
 
@@ -20,9 +21,9 @@ public class BookManager : IBookService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<BookDto>> GetAllBooksAsync(bool trackChanges)
+    public async Task<IEnumerable<BookDto>> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges)
     {
-        var books = await _repositoryManager.Book.GetAllBooksAsync(trackChanges);
+        var books = await _repositoryManager.Book.GetAllBooksAsync(bookParameters, trackChanges);
         return _mapper.Map<IEnumerable<BookDto>>(books);
     }
 
