@@ -21,10 +21,15 @@ public class BookManager : IBookService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<BookDto>> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges)
+    public async Task<(IEnumerable<BookDto> books, MetaData metaData)> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges)
     {
-        var books = await _repositoryManager.Book.GetAllBooksAsync(bookParameters, trackChanges);
-        return _mapper.Map<IEnumerable<BookDto>>(books);
+        var booksWithMetaData = await _repositoryManager
+            .Book
+            .GetAllBooksAsync(bookParameters, trackChanges);
+
+        var bookDto = _mapper.Map<IEnumerable<BookDto>>(booksWithMetaData);
+        
+        return (bookDto, booksWithMetaData.MetaData);
     }
 
     public async Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges)
