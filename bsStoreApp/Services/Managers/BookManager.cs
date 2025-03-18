@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Dynamic;
+using AutoMapper;
 using Entities.DTOs;
 using Entities.Exceptions;
 using Entities.Models;
@@ -13,15 +14,17 @@ public class BookManager : IBookService
     private readonly IRepositoryManager _repositoryManager;
     private readonly ILoggerService _logger;
     private readonly IMapper _mapper;
+    private readonly IDataShaper<BookDto> _dataShaper;
 
-    public BookManager(IRepositoryManager repositoryManager, ILoggerService logger, IMapper mapper)
+    public BookManager(IRepositoryManager repositoryManager, ILoggerService logger, IMapper mapper,  IDataShaper<BookDto> dataShaper)
     {
         _repositoryManager = repositoryManager;
         _logger = logger;
         _mapper = mapper;
+        _dataShaper = dataShaper;
     }
 
-    public async Task<(IEnumerable<BookDto> books, MetaData metaData)> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges)
+    public async Task<(IEnumerable<ExpandoObject> books, MetaData metaData)> GetAllBooksAsync(BookParameters bookParameters, bool trackChanges)
     {
         if (!bookParameters.ValidPriceRange)
         {
@@ -33,9 +36,11 @@ public class BookManager : IBookService
             .Book
             .GetAllBooksAsync(bookParameters, trackChanges);
 
-        var bookDto = _mapper.Map<IEnumerable<BookDto>>(booksWithMetaData);
+        var booksDto = _mapper.Map<IEnumerable<BookDto>>(booksWithMetaData);
+
+        var shapedData = _dataShaper.ShapeData(booksDto, bookParameters.Fields);
         
-        return (bookDto, booksWithMetaData.MetaData);
+        return (shapedData, booksWithMetaData.MetaData);
     }
 
     public async Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges)

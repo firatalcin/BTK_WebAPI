@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 using Presentation.ActionFilters;
 using Repositories.Contracts;
 using Repositories.EFCore;
+using Services;
 using Services.Contracts;
 using Services.Managers;
 
@@ -45,5 +47,10 @@ public static class ServicesExtensions
         {
             options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("X-Pagination"));
         });
+    }
+
+    public static void ConfigureDataShaper(this IServiceCollection services)
+    {
+        services.AddScoped<IDataShaper<BookDto>, DataShaper<BookDto>>();
     }
 }
